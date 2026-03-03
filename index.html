@@ -15,17 +15,22 @@
 
   <!-- Simple UI Overlay -->
   <div id="ui" style="
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      z-index: 10;
-      color: white;
-      font-family: Arial;
-      background: rgba(0,0,0,0.5);
-      padding: 10px;
-      border-radius: 8px;">
-    AR Demo Running
-  </div>
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  font-family: Arial;
+  background: rgba(0,0,0,0.6);
+  padding: 10px;
+  border-radius: 8px;
+  color: white;">
+
+  <div style="margin-bottom: 8px;">Choose Monument:</div>
+
+  <button onclick="showTaj()">Taj Mahal</button>
+  <button onclick="showAngkor()">Angkor Wat</button>
+
+</div>
 
   <a-scene
       embedded
@@ -37,21 +42,47 @@
 
       <!-- YOUR MODEL (UNCOMMENT AFTER TESTING) -->
       
-      <a-entity
-        gltf-model="Angkorwat.glb"
-        scale="0.0002 0.0002 0.0002"
-        position="0 0 0">
-      </a-entity>
+      <a-marker preset="hiro">
 
-    </a-marker>
+  <!-- Taj Mahal -->
+  <a-entity
+    id="taj"
+    gltf-model="tajmahal.glb"
+    scale="0.0002 0.0002 0.0002"
+    position="0 0 0"
+    visible="true">
+  </a-entity>
+
+  <!-- Angkor Wat -->
+  <a-entity
+    id="angkor"
+    gltf-model="angkorwat.glb"
+    scale="0.0002 0.0002 0.0002"
+    position="0 0 0"
+    visible="false">
+  </a-entity>
+
+</a-marker>
 
     <!-- Camera -->
     <a-entity camera></a-entity>
 
   </a-scene>
 
+  <script>
+function showTaj() {
+  document.getElementById("taj").setAttribute("visible", true);
+  document.getElementById("angkor").setAttribute("visible", false);
+}
+
+function showAngkor() {
+  document.getElementById("taj").setAttribute("visible", false);
+  document.getElementById("angkor").setAttribute("visible", true);
+}
+</script>
 </body>
 </html>
+
 
 
 
