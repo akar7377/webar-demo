@@ -16,12 +16,23 @@
 
     <!-- HIRO MARKER -->
     <a-marker preset="hiro">
-      <a-entity 
-  gltf-model="model.glb"
-  scale="0.2 0.2 0.2"
-  position="0 0 0">
-</a-entity>
-    </a-marker>
+
+  <a-entity 
+    gltf-model="tajmahal.glb"
+    scale="0.3 0.3 0.3"
+    position="0 0 0"
+    rotation="0 180 0">
+  </a-entity>
+
+  <a-text 
+    value="Taj Mahal"
+    position="0 1 0"
+    align="center"
+    color="white"
+    scale="1 1 1">
+  </a-text>
+
+</a-marker>
 
     <!-- CAMERA -->
     <a-entity camera></a-entity>
@@ -30,3 +41,4 @@
 </body>
 
 </html>
+
