@@ -1,25 +1,61 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
-  </head>
+<head>
+  <meta charset="utf-8">
+  <title>AR Monument Demo</title>
 
-  <body style="margin: 0; overflow: hidden;">
-    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
-      
-      <a-marker preset="hiro">
-        <a-entity 
-          gltf-model="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
-          scale="0.5 0.5 0.5"
-          position="0 0.5 0">
-        </a-entity>
-      </a-marker>
+  <!-- A-Frame -->
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
 
-      <a-entity camera></a-entity>
+  <!-- AR.js -->
+  <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
+</head>
 
-    </a-scene>
-  </body>
+<body style="margin: 0; overflow: hidden;">
+
+  <!-- Simple UI Overlay -->
+  <div id="ui" style="
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 10;
+      color: white;
+      font-family: Arial;
+      background: rgba(0,0,0,0.5);
+      padding: 10px;
+      border-radius: 8px;">
+    AR Demo Running
+  </div>
+
+  <a-scene
+      embedded
+      vr-mode-ui="enabled: false"
+      arjs="sourceType: webcam; debugUIEnabled: false;">
+
+    <!-- HIRO Marker -->
+    <a-marker preset="hiro">
+
+      <!-- TEST BOX (REMOVE LATER) -->
+      <a-box
+        position="0 0.5 0"
+        material="color: red;">
+      </a-box>
+
+      <!-- YOUR MODEL (UNCOMMENT AFTER TESTING) -->
+      <!--
+      <a-entity
+        gltf-model="model.glb"
+        scale="0.5 0.5 0.5"
+        position="0 0 0">
+      </a-entity>
+      -->
+
+    </a-marker>
+
+    <!-- Camera -->
+    <a-entity camera></a-entity>
+
+  </a-scene>
+
+</body>
 </html>
-
-
