@@ -8,8 +8,7 @@
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
   <!-- AR.js -->
   <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
-
- <style>
+<style>
   body {
     margin: 0;
     overflow: hidden;
@@ -49,14 +48,14 @@
     font-weight: bold;
     color: white;
     cursor: pointer;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    background: #444;
     box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    transition: background 0.2s ease, transform 0.1s ease;
+    transition: background 0.2s ease;
   }
 
-  /* Remove big scaling (this was causing movement) */
-  .model-btn:active {
-    transform: scale(0.96);
+  /* ACTIVE BUTTON COLOR */
+  .active {
+    background: #2575fc;
   }
 </style>
 </head>
@@ -70,9 +69,9 @@
 
   <!-- Button UI -->
   <div id="ui">
-    <button class="model-btn" onclick="showTaj()">Taj Mahal</button>
-    <button class="model-btn" onclick="showAngkor()">Angkor Wat</button>
-  </div>
+  <button id="tajBtn" class="model-btn active" onclick="showTaj()">Taj Mahal</button>
+  <button id="angkorBtn" class="model-btn" onclick="showAngkor()">Angkor Wat</button>
+</div>
 
   <a-scene
     embedded
@@ -105,17 +104,24 @@
   </a-scene>
 
   <script>
-    function showTaj() {
-      document.getElementById("taj").setAttribute("visible", true);
-      document.getElementById("angkor").setAttribute("visible", false);
-    }
+function showTaj() {
+  document.getElementById("taj").setAttribute("visible", true);
+  document.getElementById("angkor").setAttribute("visible", false);
 
-    function showAngkor() {
-      document.getElementById("taj").setAttribute("visible", false);
-      document.getElementById("angkor").setAttribute("visible", true);
-    }
-  </script>
+  document.getElementById("tajBtn").classList.add("active");
+  document.getElementById("angkorBtn").classList.remove("active");
+}
+
+function showAngkor() {
+  document.getElementById("taj").setAttribute("visible", false);
+  document.getElementById("angkor").setAttribute("visible", true);
+
+  document.getElementById("tajBtn").classList.remove("active");
+  document.getElementById("angkorBtn").classList.add("active");
+}
+</script>
 
 </body>
 </html>
+
 
