@@ -1,251 +1,243 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>AR Monument Demo</title>
+<meta charset="utf-8">
+<title>Wonders of the World AR</title>
 
-  <!-- A-Frame -->
-  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-  <!-- AR.js -->
-  <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
+<!-- AFRAME -->
+<script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+
+<!-- ARJS -->
+<script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
+
 <style>
-  body {
-    margin: 0;
-    overflow: hidden;
-    font-family: "Georgia", serif;
-    background: #1C1A18;
-  }
+body{
+margin:0;
+overflow:hidden;
+background:#1C1A18;
+font-family:Georgia, serif;
+}
 
-  /* TITLE */
-  .title {
-    position: fixed;
-    top: 20px;
-    left: 0;
-    right: 0;
-    text-align: center;
-    font-size: 24px;
-    letter-spacing: 3px;
-    color: #F3EBDD;
-    text-shadow: 0 0 20px rgba(0,0,0,0.8);
-    z-index: 20;
-  }
+.title{
+position:fixed;
+top:20px;
+width:100%;
+text-align:center;
+color:#F3EBDD;
+font-size:24px;
+letter-spacing:3px;
+z-index:10;
+}
 
-  /* BUTTON CONTAINER */
-  #ui {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 15px;
-    z-index: 20;
+#ui{
+position:fixed;
+bottom:30px;
+left:50%;
+transform:translateX(-50%);
+display:flex;
+gap:12px;
+background:rgba(0,0,0,0.5);
+padding:15px;
+border-radius:10px;
+}
 
-    padding: 15px 25px;
-    border-radius: 12px;
+.model-btn{
+padding:10px 20px;
+border:1px solid #C6A75E;
+background:#3A2F23;
+color:#F3EBDD;
+cursor:pointer;
+border-radius:6px;
+}
 
-    background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255,255,255,0.08);
-  }
-
-  /* BUTTON STYLE */
-  .model-btn {
-    padding: 12px 22px;
-    border-radius: 6px;
-    border: 1px solid #C6A75E;
-    font-size: 15px;
-    letter-spacing: 1px;
-    color: #F3EBDD;
-    cursor: pointer;
-    background: #3A2F23;
-    transition: all 0.25s ease;
-  }
-
-  .model-btn:hover {
-    background: #6B4F2A;
-    transform: translateY(-2px);
-  }
-
-  .active {
-    background: #C6A75E;
-    color: #1C1A18;
-  }
+.active{
+background:#C6A75E;
+color:black;
+}
 </style>
 </head>
 
 <body>
 
-  <!-- Title -->
-  <div class="title">
-    Wonders of the World AR
-  </div>
-
-  <!-- Button UI -->
-  <div id="ui">
-  <button id="tajBtn" class="model-btn active" onclick="showTaj()">Taj Mahal</button>
-  <button id="angkorBtn" class="model-btn" onclick="showAngkor()">Angkor Wat</button>
-  <button class="model-btn" onclick="startStory()">Start Story</button>
+<div class="title">
+Wonders of the World AR
 </div>
 
-  <a-scene
-    embedded
-    vr-mode-ui="enabled: false"
-    arjs="sourceType: webcam; debugUIEnabled: false;">
+<div id="ui">
+<button id="tajBtn" class="model-btn active" onclick="showTaj()">Taj Mahal</button>
+<button id="angkorBtn" class="model-btn" onclick="showAngkor()">Angkor Wat</button>
+<button class="model-btn" onclick="startStory()">Start Story</button>
+</div>
 
-    <a-marker preset="hiro">
+<a-scene embedded vr-mode-ui="enabled:false"
+arjs="sourceType:webcam; debugUIEnabled:false;">
 
-       <a-text
-  id="infoPanel"
-  value=""
-  position="0 0.6 0"
-  align="center"
-  color="white"
-  width="2"
-  visible="false">
+<a-marker preset="hiro">
+
+<!-- INFO PANEL -->
+
+<a-text
+id="infoPanel"
+value=""
+position="0 0.8 0"
+align="center"
+color="white"
+width="2"
+visible="false">
 </a-text>
 
-      <!-- Taj Mahal -->
-      <a-entity
-  id="taj"
-  gltf-model="Tajtexturedfinal.glb"
-  scale="0.5 0.5 0.5"
-  position="0 -0.3 0"
-  rotation="0 0 0"
-  visible="true"
+<!-- TAJ GROUP -->
 
-  animation__rise="property: position; from: 0 -0.3 0; to: 0 0 0; dur: 2000; easing: easeOutCubic; startEvents: startAnim"
+<a-entity id="tajGroup" visible="true">
 
-  animation__rotate="property: rotation; to: 0 360 0; dur: 20000; loop: true; easing: linear; startEvents: startAnim">
-
-    <!--Hotspots-->
-      <a-sphere
-  position="0 0.35 0"
-  radius="0.05"
-  color="red"
-  class="clickable"
-  onclick="showInfo('dome')">
-</a-sphere>
-
-        <a-sphere
-  position="0.2 0.25 0"
-  radius="0.05"
-  color="red"
-  class="clickable"
-  onclick="showInfo('minaret')">
-</a-sphere>
-
-        <a-sphere
-  position="0 -0.05 0.25"
-  radius="0.05"
-  color="red"
-  class="clickable"
-  onclick="showInfo('garden')">
-</a-sphere>
-        
+<a-entity
+id="taj"
+gltf-model="Tajtexturedfinal.glb"
+scale="0.5 0.5 0.5"
+position="0 -0.3 0"
+animation__rise="property: position; from:0 -0.3 0; to:0 0 0; dur:2000; startEvents:startAnim"
+animation__rotate="property: rotation; to:0 360 0; dur:20000; loop:true; startEvents:startAnim">
 </a-entity>
 
-      <!-- Angkor Wat -->
+<!-- Taj Hotspots -->
 
-      <a-entity
-  id="angkor"
-  gltf-model="models/TajtextureFinalfr.glb"
-  material="side: double"
-  scale="0.033 0.033 0.033"
-  position="0 -0.3 0"
-  rotation="0 0 0"
-  visible="false"
+<a-sphere position="0 0.45 0"
+radius="0.07"
+color="red"
+class="clickable"
+onclick="showInfo('dome')">
+</a-sphere>
 
-  animation__rise="property: position; from: 0 -0.3 0; to: 0 0 0; dur: 2000; easing: easeOutCubic; startEvents: startAnim"
+<a-sphere position="0.35 0.25 0"
+radius="0.07"
+color="red"
+class="clickable"
+onclick="showInfo('minaret')">
+</a-sphere>
 
-  animation__rotate="property: rotation; to: 0 360 0; dur: 20000; loop: true; easing: linear; startEvents: startAnim">
+<a-sphere position="0 -0.05 0.35"
+radius="0.07"
+color="red"
+class="clickable"
+onclick="showInfo('garden')">
+</a-sphere>
+
 </a-entity>
 
-    </a-marker>
+<!-- ANGKOR GROUP -->
 
-    <a-entity camera look-controls>
-  <a-cursor 
-    raycaster="objects: .clickable"
-    fuse="false"
-    material="color: white; shader: flat">
-  </a-cursor>
+<a-entity id="angkorGroup" visible="false">
+
+<a-entity
+id="angkor"
+gltf-model="TajtextureFinalfr.glb"
+scale="0.04 0.04 0.04"
+position="0 -0.3 0"
+animation__rise="property: position; from:0 -0.3 0; to:0 0 0; dur:2000; startEvents:startAnim"
+animation__rotate="property: rotation; to:0 360 0; dur:20000; loop:true; startEvents:startAnim">
 </a-entity>
-    
-  </a-scene>
 
-  <script>
-    
-function showTaj() {
-  document.getElementById("taj").setAttribute("visible", true);
-  document.getElementById("angkor").setAttribute("visible", false);
+<!-- Angkor Hotspots -->
 
-  document.getElementById("tajBtn").classList.add("active");
-  document.getElementById("angkorBtn").classList.remove("active");
+<a-sphere position="0 0.4 0"
+radius="0.07"
+color="blue"
+class="clickable"
+onclick="showInfo('tower')">
+</a-sphere>
+
+<a-sphere position="0.3 0.25 0.2"
+radius="0.07"
+color="blue"
+class="clickable"
+onclick="showInfo('temple')">
+</a-sphere>
+
+</a-entity>
+
+</a-marker>
+
+<a-entity camera look-controls>
+
+<a-cursor
+raycaster="objects: .clickable"
+material="color:white">
+</a-cursor>
+
+</a-entity>
+
+</a-scene>
+
+<script>
+
+function showTaj(){
+document.getElementById("tajGroup").setAttribute("visible",true)
+document.getElementById("angkorGroup").setAttribute("visible",false)
+
+document.getElementById("tajBtn").classList.add("active")
+document.getElementById("angkorBtn").classList.remove("active")
 }
 
-function showAngkor() {
-  document.getElementById("taj").setAttribute("visible", false);
-  document.getElementById("angkor").setAttribute("visible", true);
+function showAngkor(){
+document.getElementById("tajGroup").setAttribute("visible",false)
+document.getElementById("angkorGroup").setAttribute("visible",true)
 
-  document.getElementById("tajBtn").classList.remove("active");
-  document.getElementById("angkorBtn").classList.add("active");
+document.getElementById("tajBtn").classList.remove("active")
+document.getElementById("angkorBtn").classList.add("active")
 }
-    
-function startStory() {
-  const taj = document.querySelector("#taj");
-  const angkor = document.querySelector("#angkor");
 
-  if (taj.getAttribute("visible")) {
-    taj.emit("startAnim");
-  }
+function startStory(){
 
-  if (angkor.getAttribute("visible")) {
-    angkor.emit("startAnim");
-  }
+let taj=document.querySelector("#taj")
+let angkor=document.querySelector("#angkor")
+
+if(document.querySelector("#tajGroup").getAttribute("visible"))
+taj.emit("startAnim")
+
+if(document.querySelector("#angkorGroup").getAttribute("visible"))
+angkor.emit("startAnim")
+
 }
 
 function showInfo(part){
 
-  const panel = document.querySelector("#infoPanel");
+let panel=document.querySelector("#infoPanel")
 
-  if(part === "dome"){
-    panel.setAttribute("value",
-      "The Taj Mahal's central dome rises about 73 meters high."
-    );
-  }
+if(part==="dome"){
+panel.setAttribute("value",
+"Taj Mahal central dome rises about 73 meters high."
+)
+}
 
-  if(part === "minaret"){
-    panel.setAttribute("value",
-      "The Taj Mahal has four minarets that slightly lean outward to protect the tomb."
-    );
-  }
+if(part==="minaret"){
+panel.setAttribute("value",
+"Taj Mahal has four minarets that lean outward for protection."
+)
+}
 
-  if(part === "garden"){
-    panel.setAttribute("value",
-      "The Taj complex follows a Mughal garden layout called Charbagh."
-    );
-  }
+if(part==="garden"){
+panel.setAttribute("value",
+"The Taj complex uses the Mughal Charbagh garden layout."
+)
+}
 
-  panel.setAttribute("visible", true);
+if(part==="tower"){
+panel.setAttribute("value",
+"Angkor Wat has five lotus-shaped towers symbolizing Mount Meru."
+)
+}
+
+if(part==="temple"){
+panel.setAttribute("value",
+"Angkor Wat is the largest religious monument in the world."
+)
+}
+
+panel.setAttribute("visible",true)
 
 }
-    
+
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
