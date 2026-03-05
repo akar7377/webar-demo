@@ -92,6 +92,15 @@
     vr-mode-ui="enabled: false"
     arjs="sourceType: webcam; debugUIEnabled: false;">
 
+    <a-text
+  id="infoPanel"
+  value=""
+  position="0 0.6 -1"
+  align="center"
+  color="white"
+  visible="false">
+</a-text>
+
     <a-marker preset="hiro">
 
       <!-- Taj Mahal -->
@@ -106,6 +115,16 @@
 
   animation__rotate="property: rotation; to: 0 360 0; dur: 20000; loop: true; easing: linear; startEvents: startAnim">
 </a-entity>
+
+      <!--Hotspots-->
+      <a-sphere
+  id="tajHotspot1"
+  position="0 0.25 0.2"
+  radius="0.03"
+  color="red"
+  class="clickable"
+  onclick="showInfo('tajDome')">
+</a-sphere>
 
       <!-- Angkor Wat -->
 
@@ -159,10 +178,24 @@ function startStory() {
   }
 
 }
+function showInfo(part){
+
+  const panel = document.querySelector("#infoPanel");
+
+  if(part === "tajDome"){
+    panel.setAttribute("value",
+      "This is the main dome of the Taj Mahal. It rises about 73 meters high."
+    );
+  }
+
+  panel.setAttribute("visible", true);
+}
+    
 </script>
 
 </body>
 </html>
+
 
 
 
