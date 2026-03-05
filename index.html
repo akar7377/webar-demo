@@ -84,7 +84,7 @@
   <div id="ui">
   <button id="tajBtn" class="model-btn active" onclick="showTaj()">Taj Mahal</button>
   <button id="angkorBtn" class="model-btn" onclick="showAngkor()">Angkor Wat</button>
-  <button onclick="startStory()">Start Story</button>
+  <button class="model-btn" onclick="startStory()">Start Story</button>
 </div>
 
   <a-scene
@@ -97,7 +97,7 @@
        <a-text
   id="infoPanel"
   value=""
-  position="0 0.7 -1"
+  position="0 0.6 0"
   align="center"
   color="white"
   width="2"
@@ -191,7 +191,6 @@ function showAngkor() {
 }
     
 function startStory() {
-
   const taj = document.querySelector("#taj");
   const angkor = document.querySelector("#angkor");
 
@@ -202,43 +201,6 @@ function startStory() {
   if (angkor.getAttribute("visible")) {
     angkor.emit("startAnim");
   }
-
-}
-function startStory() {
-  const taj = document.querySelector("#taj");
-  const angkor = document.querySelector("#angkor");
-
-  if (taj.getAttribute("visible")) {
-    taj.emit("startAnim");
-  }
-
-  if (angkor.getAttribute("visible")) {
-    angkor.emit("startAnim");
-  }
-}
-
-function showInfo(part){
-  const panel = document.querySelector("#infoPanel");
-
-  if(part === "dome"){
-    panel.setAttribute("value",
-      "The Taj Mahal's central dome rises about 73 meters high."
-    );
-  }
-
-  if(part === "minaret"){
-    panel.setAttribute("value",
-      "The Taj Mahal has four minarets that lean slightly outward."
-    );
-  }
-
-  if(part === "garden"){
-    panel.setAttribute("value",
-      "The Taj complex follows the Mughal Charbagh garden design."
-    );
-  }
-
-  panel.setAttribute("visible", true);
 }
 
 function showInfo(part){
@@ -271,6 +233,7 @@ function showInfo(part){
 
 </body>
 </html>
+
 
 
 
