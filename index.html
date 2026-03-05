@@ -84,6 +84,7 @@
   <div id="ui">
   <button id="tajBtn" class="model-btn active" onclick="showTaj()">Taj Mahal</button>
   <button id="angkorBtn" class="model-btn" onclick="showAngkor()">Angkor Wat</button>
+  <button onclick="startStory()">Start Story</button>
 </div>
 
   <a-scene
@@ -95,21 +96,30 @@
 
       <!-- Taj Mahal -->
       <a-entity
-        id="taj"
-        gltf-model="Tajtexturedfinal.glb"
-        scale="0.3 0.3 0.3"
-        position="0 0.15 0"
-        visible="true">
-      </a-entity>
+  id="taj"
+  gltf-model="models/taj.glb"
+  scale="0.01 0.01 0.01"
+  position="0 -0.3 0"
+  visible="false"
+
+  animation__rise="property: position; from: 0 -0.3 0; to: 0 0 0; dur: 2000; easing: easeOutCubic; startEvents: startAnim"
+
+  animation__rotate="property: rotation; to: 0 360 0; dur: 20000; loop: true; easing: linear; startEvents: startAnim">
+</a-entity>
 
       <!-- Angkor Wat -->
+
       <a-entity
-        id="angkor"
-        gltf-model="models/texturedankgor.glb"
-        scale="0.0005 0.0005 0.0005"
-        position="0.3 -0.5 0.5"
-        visible="false">
-      </a-entity>
+  id="angkor"
+  gltf-model="models/texturedankgor.glb"
+  scale="0.0003 0.0003 0.0003"
+  position="0 -0.8 0.5"
+  visible="false"
+
+  animation__rise="property: position; from: 0 -0.8 0.5; to: 0.3 -0.5 0.5; dur: 2000; easing: easeOutCubic; startEvents: startAnim"
+
+  animation__rotate="property: rotation; to: 0 360 0; dur: 20000; loop: true; easing: linear; startEvents: startAnim">
+</a-entity>
 
     </a-marker>
 
@@ -117,6 +127,7 @@
   </a-scene>
 
   <script>
+    
 function showTaj() {
   document.getElementById("taj").setAttribute("visible", true);
   document.getElementById("angkor").setAttribute("visible", false);
@@ -132,16 +143,22 @@ function showAngkor() {
   document.getElementById("tajBtn").classList.remove("active");
   document.getElementById("angkorBtn").classList.add("active");
 }
+    
+function startStory() {
+
+  const taj = document.querySelector("#taj");
+  const angkor = document.querySelector("#angkor");
+
+  if (taj.getAttribute("visible")) {
+    taj.emit("startAnim");
+  }
+
+  if (angkor.getAttribute("visible")) {
+    angkor.emit("startAnim");
+  }
+
+}
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
