@@ -94,10 +94,11 @@
 
     <a-text
   id="infoPanel"
-  value="Taj dome"
-  position="0 0.6 -1"
+  value=""
+  position="0 0.7 -1"
   align="center"
   color="white"
+  width="2"
   visible="false">
 </a-text>
 
@@ -114,17 +115,35 @@
   animation__rise="property: position; from: 0 -0.3 0; to: 0 0 0; dur: 2000; easing: easeOutCubic; startEvents: startAnim"
 
   animation__rotate="property: rotation; to: 0 360 0; dur: 20000; loop: true; easing: linear; startEvents: startAnim">
-</a-entity>
 
-      <!--Hotspots-->
+    <!--Hotspots-->
       <a-sphere
-  id="tajHotspot1"
-  position="0 0.25 0.2"
+  position="0 0.35 0"
   radius="0.03"
   color="red"
   class="clickable"
-  onclick="showInfo('tajDome')">
+  onclick="showInfo('dome')">
 </a-sphere>
+
+        <a-sphere
+  position="0.2 0.25 0"
+  radius="0.03"
+  color="red"
+  class="clickable"
+  onclick="showInfo('minaret')">
+</a-sphere>
+
+        <a-sphere
+  position="0 -0.05 0.25"
+  radius="0.03"
+  color="red"
+  class="clickable"
+  onclick="showInfo('garden')">
+</a-sphere>
+        
+</a-entity>
+
+      
 
       <!-- Angkor Wat -->
 
@@ -143,7 +162,9 @@
 
     </a-marker>
 
-    <a-entity camera></a-entity>
+    <a-camera>
+  <a-cursor raycaster="objects: .clickable"></a-cursor>
+</a-camera>
   </a-scene>
 
   <script>
@@ -178,23 +199,41 @@ function startStory() {
   }
 
 }
+<script>
+
 function showInfo(part){
 
   const panel = document.querySelector("#infoPanel");
 
-  if(part === "tajDome"){
+  if(part === "dome"){
     panel.setAttribute("value",
-      "This is the main dome of the Taj Mahal. It rises about 73 meters high."
+      "The Taj Mahal's central dome rises about 73 meters high."
+    );
+  }
+
+  if(part === "minaret"){
+    panel.setAttribute("value",
+      "The Taj Mahal has four minarets that slightly lean outward to protect the tomb."
+    );
+  }
+
+  if(part === "garden"){
+    panel.setAttribute("value",
+      "The Taj complex follows a Mughal garden layout called Charbagh."
     );
   }
 
   panel.setAttribute("visible", true);
+
 }
+
+</script>
     
 </script>
 
 </body>
 </html>
+
 
 
 
