@@ -92,7 +92,9 @@
     vr-mode-ui="enabled: false"
     arjs="sourceType: webcam; debugUIEnabled: false;">
 
-    <a-text
+    <a-marker preset="hiro">
+
+       <a-text
   id="infoPanel"
   value=""
   position="0 0.7 -1"
@@ -101,8 +103,6 @@
   width="2"
   visible="false">
 </a-text>
-
-    <a-marker preset="hiro">
 
       <!-- Taj Mahal -->
       <a-entity
@@ -143,8 +143,6 @@
         
 </a-entity>
 
-      
-
       <!-- Angkor Wat -->
 
       <a-entity
@@ -162,9 +160,14 @@
 
     </a-marker>
 
-    <a-camera>
-  <a-cursor raycaster="objects: .clickable"></a-cursor>
-</a-camera>
+    <a-entity camera look-controls>
+  <a-cursor 
+    raycaster="objects: .clickable"
+    fuse="false"
+    material="color: white; shader: flat">
+  </a-cursor>
+</a-entity>
+    
   </a-scene>
 
   <script>
@@ -233,6 +236,7 @@ function showInfo(part){
 
 </body>
 </html>
+
 
 
 
