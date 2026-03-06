@@ -72,23 +72,23 @@ Wonders of the World AR
 </div>
 
 <a-scene embedded vr-mode-ui="enabled:false"
-arjs="sourceType:webcam; debugUIEnabled:false;"
-style="pointer-events:none">
+arjs="sourceType:webcam; debugUIEnabled:false;">
 
 <a-marker preset="hiro">
 
 <!-- INFO PANEL -->
 
-<a-text
+  <a-text
 id="infoPanel"
 value=""
 position="0 0.8 0"
+visible="false"
+look-at="[camera]"
 align="center"
 color="white"
-width="2"
-visible="false">
+width="2">
 </a-text>
-
+  
 <!-- TAJ GROUP -->
 
 <a-entity id="tajGroup" visible="true">
@@ -106,7 +106,7 @@ animation__rotate="property: rotation; to:0 360 0; dur:20000; loop:true; startEv
 
 <a-sphere
 position="0 0.45 0"
-radius="0.07"
+radius="0.1"
 color="red"
 class="clickable"
 hotspot="text: Taj Mahal central dome rises about 73 meters high">
@@ -114,7 +114,7 @@ hotspot="text: Taj Mahal central dome rises about 73 meters high">
 
 <a-sphere
 position="0.35 0.25 0"
-radius="0.07"
+radius="0.1"
 color="red"
 class="clickable"
 hotspot="text: Taj Mahal has four minarets that lean outward">
@@ -122,7 +122,7 @@ hotspot="text: Taj Mahal has four minarets that lean outward">
 
 <a-sphere
 position="0 -0.05 0.35"
-radius="0.07"
+radius="0.1"
 color="red"
 class="clickable"
 hotspot="text: The Taj complex uses a Mughal Charbagh garden layout">
@@ -147,7 +147,7 @@ animation__rotate="property: rotation; to:0 360 0; dur:20000; loop:true; startEv
 
 <a-sphere
 position="0 0.4 0"
-radius="0.07"
+radius="0.1"
 color="blue"
 class="clickable"
 hotspot="text: Angkor Wat has five lotus shaped towers">
@@ -155,7 +155,7 @@ hotspot="text: Angkor Wat has five lotus shaped towers">
 
 <a-sphere
 position="0.3 0.25 0.2"
-radius="0.07"
+radius="0.1"
 color="blue"
 class="clickable"
 hotspot="text: Angkor Wat is the largest religious monument in the world">
@@ -262,4 +262,5 @@ panel.setAttribute("visible",true)
 
 </body>
 </html>
+
 
