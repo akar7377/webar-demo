@@ -124,7 +124,7 @@ hotspot="text: Angkor Wat is the largest religious monument in the world">
 
 </a-marker>
 
-<a-entity camera look-controls>
+<a-entity id="cam" camera look-controls>
 <a-cursor
 raycaster="objects: .clickable"
 fuse="true"
@@ -140,10 +140,24 @@ material="color:white">
 AFRAME.registerComponent("hotspot", {
 schema:{text:{type:"string"}},
 init:function(){
+
 this.el.addEventListener("click", ()=>{
-let panel=document.querySelector("#infoPanel")
+
+let panel = document.querySelector("#infoPanel")
+let cam = document.querySelector("#cam")
+
+/* show text */
 panel.setAttribute("value", this.data.text)
 panel.setAttribute("visible", true)
+
+/* text zoom animation */
+panel.setAttribute("animation",
+"property: position; from:0 -0.6 -2; to:0 -0.3 -1; dur:500; easing:easeOutQuad")
+
+/* camera zoom */
+cam.setAttribute("animation",
+"property: position; to:0 0 0.3; dur:600; easing:easeOutQuad")
+
 })
 }
 })
@@ -221,6 +235,7 @@ taj.appendChild(s3)
 
 </body>
 </html>
+
 
 
 
