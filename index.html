@@ -200,14 +200,14 @@ taj.appendChild(s3)
 
 })
 
-window.onload = function(){
-
-document.querySelector("#angkor").addEventListener("model-loaded", function(){
+document.querySelector("a-scene").addEventListener("loaded", function(){
 
 let angkor = document.querySelector("#angkor")
 
+angkor.addEventListener("model-loaded", function(){
+
 let debug = document.createElement("a-sphere")
-debug.setAttribute("position","0 0.5 0")
+debug.setAttribute("position","0 1 0")
 debug.setAttribute("radius","0.6")
 debug.setAttribute("color","yellow")
 
@@ -215,12 +215,13 @@ angkor.appendChild(debug)
 
 })
 
-}
+})
 
 </script>
 
 </body>
 </html>
+
 
 
 
