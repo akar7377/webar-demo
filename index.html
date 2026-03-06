@@ -130,24 +130,18 @@ hotspot="text: The Taj complex uses a Mughal Charbagh garden layout">
 </a-entity>
 
 <!-- ANGKOR GROUP -->
-
 <a-entity id="angkorGroup" visible="false">
-
-<a-entity position="0 0 0">
 
 <a-entity
 id="angkor"
-gltf-model="texturedangkor.glb"
+gltf-model="models/texturedAngkor.glb"
 scale="0.2 0.2 0.2"
 position="0 0.2 0"
 animation__rise="property: position; from:0 -0.3 0; to:0 0.2 0; dur:2000; startEvents:startAnim">
-</a-entity>
-
-</a-entity>
 
 <!-- Angkor Hotspots -->
 <a-sphere
-position="0 0.4 0"
+position="0 2 0"
 radius="0.1"
 color="blue"
 class="clickable"
@@ -155,12 +149,14 @@ hotspot="text: Angkor Wat has five lotus shaped towers">
 </a-sphere>
 
 <a-sphere
-position="0.3 0.25 0.2"
+position="1 1 1"
 radius="0.1"
 color="blue"
 class="clickable"
 hotspot="text: Angkor Wat is the largest religious monument in the world">
 </a-sphere>
+
+</a-entity>
 
 </a-entity>
 
@@ -268,6 +264,7 @@ panel.setAttribute("visible",true)
 
 </body>
 </html>
+
 
 
 
