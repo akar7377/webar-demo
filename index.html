@@ -67,6 +67,14 @@ color:black;
 <a-scene embedded vr-mode-ui="enabled:false"
 arjs="sourceType:webcam; debugUIEnabled:false;">
 
+<!-- AUDIO -->
+<a-assets>
+<audio id="tajAudio" src="audio/Tajmahal-audio.mp3"></audio>
+<audio id="tajHotspotAudio" src="audio/tajmahal.domb-audio.mp3"></audio>
+<audio id="angkorAudio" src="audio/AngkorWat-audio.mp3"></audio>
+<audio id="angkorHotspotAudio" src="audio/ngkorTemple-audio.mp3"></audio>
+</a-assets>
+
 <a-marker preset="hiro">
 
 <!-- TAJ GROUP -->
@@ -81,6 +89,7 @@ animation__rise="property: position; from:0 -0.3 0; to:0 0 0; dur:2000; startEve
 </a-entity>
 
 </a-entity>
+
 
 <!-- ANGKOR GROUP -->
 <a-entity id="angkorGroup" visible="false">
@@ -98,7 +107,8 @@ position="0 0.27 0"
 radius="0.03"
 color="blue"
 class="clickable"
-hotspot="text: Angkor Wat has five lotus shaped towers">
+hotspot="text: Angkor Wat has five lotus shaped towers"
+audio="angkorHotspotAudio">
 </a-sphere>
 
 <a-sphere
@@ -106,15 +116,16 @@ position="0.4 0.2 0.3"
 radius="0.03"
 color="blue"
 class="clickable"
-hotspot="text: Angkor Wat is the largest religious monument in the world">
+hotspot="text: Angkor Wat is the largest religious monument in the world"
+audio="angkorHotspotAudio">
 </a-sphere>
 
 </a-entity>
 
 </a-marker>
 
-<!-- CAMERA UI -->
 
+<!-- CAMERA -->
 <a-entity camera look-controls>
 
 <a-cursor
@@ -124,8 +135,8 @@ fuse-timeout="800"
 material="color:white">
 </a-cursor>
 
-<!-- INFO BOX -->
 
+<!-- INFO BOX -->
 <a-entity id="infoBox" position="0 -0.1 -1.8" visible="false">
 
 <a-plane
@@ -134,7 +145,7 @@ height="0.25"
 color="#222"
 opacity="0.9">
 </a-plane>
-  
+
 <a-text
 id="infoText"
 value=""
@@ -147,8 +158,8 @@ position="0 0 0.01">
 
 </a-entity>
 
-<!-- EXIT BUTTON -->
 
+<!-- EXIT -->
 <a-plane
 id="exitBtn"
 class="clickable"
@@ -174,7 +185,10 @@ visible="false">
 
 </a-scene>
 
+
 <script>
+
+/* HOTSPOT COMPONENT */
 
 AFRAME.registerComponent("hotspot",{
 schema:{text:{type:"string"}},
@@ -197,25 +211,48 @@ box.setAttribute("visible",true)
 exitBtn.setAttribute("visible",true)
 exitText.setAttribute("visible",true)
 
-/* zoom monument */
+
+/* PLAY AUDIO */
+
+let audioId=this.el.getAttribute("audio")
+
+if(audioId){
+
+let audio=document.querySelector("#"+audioId)
+
+audio.currentTime=0
+audio.play()
+
+}
+
+
+/* ZOOM */
 
 if(document.querySelector("#tajGroup").getAttribute("visible")){
+
 taj.setAttribute("animation",
 "property: scale; to:0.35 0.35 0.35; dur:600")
+
 }
 
 if(document.querySelector("#angkorGroup").getAttribute("visible")){
+
 angkor.setAttribute("animation",
 "property: scale; to:0.05 0.05 0.05; dur:600")
+
 }
 
 })
 
 }
+
 })
+
 
 /* EXIT BUTTON */
+
 AFRAME.registerComponent("exit-handler",{
+
 init:function(){
 
 this.el.addEventListener("click",()=>{
@@ -233,7 +270,9 @@ if(angkor) angkor.setAttribute("scale","0.02 0.02 0.02")
 })
 
 }
+
 })
+
 
 /* MARKER FOUND */
 
@@ -243,14 +282,21 @@ let taj=document.querySelector("#taj")
 let angkor=document.querySelector("#angkor")
 
 if(document.querySelector("#tajGroup").getAttribute("visible")){
+
 taj.emit("startAnim")
+document.querySelector("#tajAudio").play()
+
 }
 
 if(document.querySelector("#angkorGroup").getAttribute("visible")){
+
 angkor.emit("startAnim")
+document.querySelector("#angkorAudio").play()
+
 }
 
 })
+
 
 function showTaj(){
 
@@ -262,6 +308,7 @@ document.getElementById("angkorBtn").classList.remove("active")
 
 }
 
+
 function showAngkor(){
 
 document.querySelector("#tajGroup").setAttribute("visible",false)
@@ -272,36 +319,33 @@ document.getElementById("angkorBtn").classList.add("active")
 
 }
 
+
 /* TAJ HOTSPOTS */
 
 document.querySelector("#taj").addEventListener("model-loaded",function(){
 
 let taj=document.querySelector("#taj")
 
-let s1=document.createElement("a-sphere")
-s1.setAttribute("position","0 2 0")
-s1.setAttribute("radius","0.3")
-s1.setAttribute("color","red")
-s1.setAttribute("class","clickable")
-s1.setAttribute("hotspot","text: Taj Mahal central dome rises about 73 meters")
+function createHotspot(pos,text){
 
-let s2=document.createElement("a-sphere")
-s2.setAttribute("position","3.25 1 3.75")
-s2.setAttribute("radius","0.3")
-s2.setAttribute("color","red")
-s2.setAttribute("class","clickable")
-s2.setAttribute("hotspot","text: Taj Mahal has four outward leaning minarets")
+let s=document.createElement("a-sphere")
 
-let s3=document.createElement("a-sphere")
-s3.setAttribute("position","0 -2 8")
-s3.setAttribute("radius","0.3")
-s3.setAttribute("color","red")
-s3.setAttribute("class","clickable")
-s3.setAttribute("hotspot","text: The Taj complex follows a Mughal Charbagh garden layout")
+s.setAttribute("position",pos)
+s.setAttribute("radius","0.3")
+s.setAttribute("color","red")
+s.setAttribute("class","clickable")
 
-taj.appendChild(s1)
-taj.appendChild(s2)
-taj.appendChild(s3)
+s.setAttribute("hotspot","text:"+text)
+
+s.setAttribute("audio","tajHotspotAudio")
+
+taj.appendChild(s)
+
+}
+
+createHotspot("0 2 0","Taj Mahal central dome rises about 73 meters")
+createHotspot("3.25 1 3.75","Taj Mahal has four outward leaning minarets")
+createHotspot("0 -2 8","The Taj complex follows a Mughal Charbagh garden layout")
 
 })
 
@@ -309,7 +353,3 @@ taj.appendChild(s3)
 
 </body>
 </html>
-
-
-
-
