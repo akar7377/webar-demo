@@ -39,6 +39,8 @@ gap:12px;
 background:rgba(0,0,0,0.5);
 padding:15px;
 border-radius:10px;
+pointer-events:auto;
+z-index:999;
 }
 
 .model-btn{
@@ -70,7 +72,8 @@ Wonders of the World AR
 </div>
 
 <a-scene embedded vr-mode-ui="enabled:false"
-arjs="sourceType:webcam; debugUIEnabled:false;">
+arjs="sourceType:webcam; debugUIEnabled:false;"
+style="pointer-events:none">
 
 <a-marker preset="hiro">
 
@@ -101,25 +104,28 @@ animation__rotate="property: rotation; to:0 360 0; dur:20000; loop:true; startEv
 
 <!-- Taj Hotspots -->
 
-<a-sphere position="0 0.45 0"
+<a-sphere
+position="0 0.45 0"
 radius="0.07"
 color="red"
 class="clickable"
-onclick="showInfo('dome')">
+hotspot="text: Taj Mahal central dome rises about 73 meters high">
 </a-sphere>
 
-<a-sphere position="0.35 0.25 0"
+<a-sphere
+position="0.35 0.25 0"
 radius="0.07"
 color="red"
 class="clickable"
-onclick="showInfo('minaret')">
+hotspot="text: Taj Mahal has four minarets that lean outward">
 </a-sphere>
 
-<a-sphere position="0 -0.05 0.35"
+<a-sphere
+position="0 -0.05 0.35"
 radius="0.07"
 color="red"
 class="clickable"
-onclick="showInfo('garden')">
+hotspot="text: The Taj complex uses a Mughal Charbagh garden layout">
 </a-sphere>
 
 </a-entity>
@@ -139,18 +145,20 @@ animation__rotate="property: rotation; to:0 360 0; dur:20000; loop:true; startEv
 
 <!-- Angkor Hotspots -->
 
-<a-sphere position="0 0.4 0"
+<a-sphere
+position="0 0.4 0"
 radius="0.07"
 color="blue"
 class="clickable"
-onclick="showInfo('tower')">
+hotspot="text: Angkor Wat has five lotus shaped towers">
 </a-sphere>
 
-<a-sphere position="0.3 0.25 0.2"
+<a-sphere
+position="0.3 0.25 0.2"
 radius="0.07"
 color="blue"
 class="clickable"
-onclick="showInfo('temple')">
+hotspot="text: Angkor Wat is the largest religious monument in the world">
 </a-sphere>
 
 </a-entity>
@@ -161,6 +169,8 @@ onclick="showInfo('temple')">
 
 <a-cursor
 raycaster="objects: .clickable"
+fuse="true"
+fuse-timeout="800"
 material="color:white">
 </a-cursor>
 
@@ -170,6 +180,17 @@ material="color:white">
 
 <script>
 
+  AFRAME.registerComponent("hotspot", {
+  schema:{text:{type:"string"}},
+
+  init:function(){
+    this.el.addEventListener("click", ()=>{
+      let panel=document.querySelector("#infoPanel")
+      panel.setAttribute("value", this.data.text)
+      panel.setAttribute("visible", true)
+    })
+  }
+})
 function showTaj(){
 document.getElementById("tajGroup").setAttribute("visible",true)
 document.getElementById("angkorGroup").setAttribute("visible",false)
@@ -241,3 +262,4 @@ panel.setAttribute("visible",true)
 
 </body>
 </html>
+
