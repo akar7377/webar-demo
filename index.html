@@ -69,17 +69,6 @@ arjs="sourceType:webcam; debugUIEnabled:false;">
 
 <a-marker preset="hiro">
 
-<!-- INFO PANEL -->
-<a-text
-id="infoPanel"
-value=""
-position="0 0.8 0"
-visible="false"
-align="center"
-color="white"
-width="2">
-</a-text>
-
 <!-- TAJ GROUP -->
 <a-entity id="tajGroup" visible="true">
 
@@ -124,9 +113,20 @@ hotspot="text: Angkor Wat is the largest religious monument in the world">
 
 </a-marker>
 
-<a-entity id="cam" camera look-controls>
+<!-- CAMERA UI -->
 
-<a-entity id="infoBox" position="0 -0.2 -1.2" visible="false">
+<a-entity camera look-controls>
+
+<a-cursor
+raycaster="objects: .clickable"
+fuse="true"
+fuse-timeout="800"
+material="color:white">
+</a-cursor>
+
+<!-- INFO BOX -->
+
+<a-entity id="infoBox" position="0 -0.25 -0.8" visible="false">
 
 <a-plane
 width="1.6"
@@ -144,56 +144,96 @@ width="1.5"
 position="0 0 0.01">
 </a-text>
 
-<a-cursor
-raycaster="objects: .clickable"
-fuse="true"
-fuse-timeout="800"
-material="color:white">
-</a-cursor>
+</a-entity>
+
+<!-- EXIT BUTTON -->
+
+<a-plane
+id="exitBtn"
+position="0 -0.8 -0.8"
+width="0.5"
+height="0.25"
+color="red"
+visible="false"
+class="clickable">
+</a-plane>
+
+<a-text
+id="exitText"
+value="EXIT"
+align="center"
+color="white"
+width="2"
+position="0 -0.8 -0.79"
+visible="false">
+</a-text>
+
 </a-entity>
 
 </a-scene>
 
 <script>
 
-AFRAME.registerComponent("hotspot", {
+AFRAME.registerComponent("hotspot",{
 schema:{text:{type:"string"}},
+
 init:function(){
 
-this.el.addEventListener("click", ()=>{
+this.el.addEventListener("click",()=>{
 
-let text = document.querySelector("#infoPanel")
-let box = document.quesrySelector("#infoBox")
-let taj = document.querySelector("#taj")
-let angkor = document.querySelector("#angkor")
+let text=document.querySelector("#infoText")
+let box=document.querySelector("#infoBox")
+let exitBtn=document.querySelector("#exitBtn")
+let exitText=document.querySelector("#exitText")
 
-/* show info text */
-text.setAttribute("value", this.data.text)
-box.setAttribute("visible", true)
+let taj=document.querySelector("#taj")
+let angkor=document.querySelector("#angkor")
 
-/* text slides toward screen */
-text.setAttribute("animation",
-"property: position; from:0 0.8 0; to:0 -0.3 -1; dur:500; easing:easeOutQuad")
+text.setAttribute("value",this.data.text)
+
+box.setAttribute("visible",true)
+exitBtn.setAttribute("visible",true)
+exitText.setAttribute("visible",true)
 
 /* zoom monument */
-if(taj){
+
+if(document.querySelector("#tajGroup").getAttribute("visible")){
 taj.setAttribute("animation",
-"property: scale; to:0.3 0.3 0.3; dur:600")
+"property: scale; to:0.35 0.35 0.35; dur:600")
 }
 
-if(angkor){
+if(document.querySelector("#angkorGroup").getAttribute("visible")){
 angkor.setAttribute("animation",
-"property: scale; to:0.03 0.03 0.03; dur:600")
+"property: scale; to:0.05 0.05 0.05; dur:600")
 }
 
 })
+
 }
 })
 
-document.querySelector("a-marker").addEventListener("markerFound", () => {
+/* EXIT BUTTON */
 
-let taj = document.querySelector("#taj")
-let angkor = document.querySelector("#angkor")
+document.querySelector("#exitBtn").addEventListener("click",()=>{
+
+let taj=document.querySelector("#taj")
+let angkor=document.querySelector("#angkor")
+
+document.querySelector("#infoBox").setAttribute("visible",false)
+document.querySelector("#exitBtn").setAttribute("visible",false)
+document.querySelector("#exitText").setAttribute("visible",false)
+
+taj.setAttribute("scale","0.2 0.2 0.2")
+angkor.setAttribute("scale","0.02 0.02 0.02")
+
+})
+
+/* MARKER FOUND */
+
+document.querySelector("a-marker").addEventListener("markerFound",()=>{
+
+let taj=document.querySelector("#taj")
+let angkor=document.querySelector("#angkor")
 
 if(document.querySelector("#tajGroup").getAttribute("visible")){
 taj.emit("startAnim")
@@ -225,9 +265,9 @@ document.getElementById("angkorBtn").classList.add("active")
 
 }
 
-/* -------- ADD HOTSPOTS AFTER MODEL LOAD -------- */
+/* TAJ HOTSPOTS */
 
-document.querySelector("#taj").addEventListener("model-loaded", function(){
+document.querySelector("#taj").addEventListener("model-loaded",function(){
 
 let taj=document.querySelector("#taj")
 
@@ -258,32 +298,7 @@ taj.appendChild(s3)
 
 })
 
-
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
