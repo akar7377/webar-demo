@@ -4,10 +4,7 @@
 <meta charset="utf-8">
 <title>Wonders of the World AR</title>
 
-<!-- AFRAME -->
 <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-
-<!-- ARJS -->
 <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
 
 <style>
@@ -39,7 +36,6 @@ gap:12px;
 background:rgba(0,0,0,0.5);
 padding:15px;
 border-radius:10px;
-pointer-events:auto;
 z-index:999;
 }
 
@@ -61,9 +57,7 @@ color:black;
 
 <body>
 
-<div class="title">
-Wonders of the World AR
-</div>
+<div class="title">Wonders of the World AR</div>
 
 <div id="ui">
 <button id="tajBtn" class="model-btn active" onclick="showTaj()">Taj Mahal</button>
@@ -77,55 +71,26 @@ arjs="sourceType:webcam; debugUIEnabled:false;">
 <a-marker preset="hiro">
 
 <!-- INFO PANEL -->
-
-  <a-text
+<a-text
 id="infoPanel"
 value=""
 position="0 0.8 0"
 visible="false"
-look-at="[camera]"
 align="center"
 color="white"
 width="2">
 </a-text>
-  
-<!-- TAJ GROUP -->
 
+<!-- TAJ GROUP -->
 <a-entity id="tajGroup" visible="true">
 
 <a-entity
 id="taj"
 gltf-model="Tajtexturedfinal.glb"
 scale="0.2 0.2 0.2"
-position="-0.35 -0.3 0"
+position="0 -0.3 0"
 animation__rise="property: position; from:0 -0.3 0; to:0 0 0; dur:2000; startEvents:startAnim">
 </a-entity>
-
-<!-- Taj Hotspots -->
-
-<a-sphere
-position="-0.35 0.45 0"
-radius="0.1"
-color="red"
-class="clickable"
-hotspot="text: Taj Mahal central dome rises about 73 meters high">
-</a-sphere>
-
-<a-sphere
-position="-0.7 0.25 0"
-radius="0.1"
-color="red"
-class="clickable"
-hotspot="text: Taj Mahal has four minarets that lean outward">
-</a-sphere>
-
-<a-sphere
-position="-0.35 -0.05 0.35"
-radius="0.1"
-color="red"
-class="clickable"
-hotspot="text: The Taj complex uses a Mughal Charbagh garden layout">
-</a-sphere>
 
 </a-entity>
 
@@ -134,10 +99,10 @@ hotspot="text: The Taj complex uses a Mughal Charbagh garden layout">
 
 <a-entity
 id="angkor"
-gltf-model="models/TajtextureFinalfr.glb"
+gltf-model="models/texturedAngkor.glb"
 scale="0.2 0.2 0.2"
-position="0 0.2 0"
-animation__rise="property: position; from:0 -0.3 0; to:0 0.2 0; dur:2000; startEvents:startAnim">
+position="0 -0.3 0"
+animation__rise="property: position; from:0 -0.3 0; to:0 0 0; dur:2000; startEvents:startAnim">
 </a-entity>
 
 </a-entity>
@@ -145,131 +110,121 @@ animation__rise="property: position; from:0 -0.3 0; to:0 0.2 0; dur:2000; startE
 </a-marker>
 
 <a-entity camera look-controls>
-
 <a-cursor
 raycaster="objects: .clickable"
 fuse="true"
 fuse-timeout="800"
 material="color:white">
 </a-cursor>
-
 </a-entity>
 
 </a-scene>
 
 <script>
 
-  AFRAME.registerComponent("hotspot", {
-  schema:{text:{type:"string"}},
-
-  init:function(){
-    this.el.addEventListener("click", ()=>{
-      console.log("hotspot clicked")
-      let panel=document.querySelector("#infoPanel")
-      panel.setAttribute("value", this.data.text)
-      panel.setAttribute("visible", true)
-    })
-  }
+AFRAME.registerComponent("hotspot", {
+schema:{text:{type:"string"}},
+init:function(){
+this.el.addEventListener("click", ()=>{
+let panel=document.querySelector("#infoPanel")
+panel.setAttribute("value", this.data.text)
+panel.setAttribute("visible", true)
 })
+}
+})
+
 function showTaj(){
-document.querySelector("#tajGroup").setAttribute("visible","true")
-document.querySelector("#angkorGroup").setAttribute("visible","false")
+
+document.querySelector("#tajGroup").setAttribute("visible",true)
+document.querySelector("#angkorGroup").setAttribute("visible",false)
 
 document.getElementById("tajBtn").classList.add("active")
 document.getElementById("angkorBtn").classList.remove("active")
+
 }
 
 function showAngkor(){
-document.querySelector("#tajGroup").setAttribute("visible","false")
-document.querySelector("#angkorGroup").setAttribute("visible","true")
+
+document.querySelector("#tajGroup").setAttribute("visible",false)
+document.querySelector("#angkorGroup").setAttribute("visible",true)
 
 document.getElementById("tajBtn").classList.remove("active")
 document.getElementById("angkorBtn").classList.add("active")
+
 }
 
 function startStory(){
 
-let taj = document.querySelector("#taj")
-let angkor = document.querySelector("#angkor")
+let taj=document.querySelector("#taj")
+let angkor=document.querySelector("#angkor")
 
-let tajVisible = document.querySelector("#tajGroup").getAttribute("visible")
-let angkorVisible = document.querySelector("#angkorGroup").getAttribute("visible")
-
-if(tajVisible){
+if(document.querySelector("#tajGroup").getAttribute("visible")){
 taj.emit("startAnim")
 }
 
-if(angkorVisible){
+if(document.querySelector("#angkorGroup").getAttribute("visible")){
 angkor.emit("startAnim")
 }
 
 }
-function showInfo(part){
 
-let panel=document.querySelector("#infoPanel")
+/* -------- ADD HOTSPOTS AFTER MODEL LOAD -------- */
 
-if(part==="dome"){
-panel.setAttribute("value",
-"Taj Mahal central dome rises about 73 meters high."
-)
-}
+document.querySelector("#taj").addEventListener("model-loaded", function(){
 
-if(part==="minaret"){
-panel.setAttribute("value",
-"Taj Mahal has four minarets that lean outward for protection."
-)
-}
+let taj=document.querySelector("#taj")
 
-if(part==="garden"){
-panel.setAttribute("value",
-"The Taj complex uses the Mughal Charbagh garden layout."
-)
-}
+let s1=document.createElement("a-sphere")
+s1.setAttribute("position","0 2 0")
+s1.setAttribute("radius","0.15")
+s1.setAttribute("color","red")
+s1.setAttribute("class","clickable")
+s1.setAttribute("hotspot","text: Taj Mahal central dome rises about 73 meters")
 
-if(part==="tower"){
-panel.setAttribute("value",
-"Angkor Wat has five lotus-shaped towers symbolizing Mount Meru."
-)
-}
+let s2=document.createElement("a-sphere")
+s2.setAttribute("position","2 1 0")
+s2.setAttribute("radius","0.15")
+s2.setAttribute("color","red")
+s2.setAttribute("class","clickable")
+s2.setAttribute("hotspot","text: Taj Mahal has four outward leaning minarets")
 
-if(part==="temple"){
-panel.setAttribute("value",
-"Angkor Wat is the largest religious monument in the world."
-)
-}
+let s3=document.createElement("a-sphere")
+s3.setAttribute("position","0 0 2")
+s3.setAttribute("radius","0.15")
+s3.setAttribute("color","red")
+s3.setAttribute("class","clickable")
+s3.setAttribute("hotspot","text: The Taj complex follows a Mughal Charbagh garden layout")
 
-panel.setAttribute("visible",true)
+taj.appendChild(s1)
+taj.appendChild(s2)
+taj.appendChild(s3)
 
-}
+})
+
+document.querySelector("#angkor").addEventListener("model-loaded", function(){
+
+let angkor=document.querySelector("#angkor")
+
+let s1=document.createElement("a-sphere")
+s1.setAttribute("position","0 2 0")
+s1.setAttribute("radius","0.15")
+s1.setAttribute("color","blue")
+s1.setAttribute("class","clickable")
+s1.setAttribute("hotspot","text: Angkor Wat has five lotus shaped towers")
+
+let s2=document.createElement("a-sphere")
+s2.setAttribute("position","2 1 1")
+s2.setAttribute("radius","0.15")
+s2.setAttribute("color","blue")
+s2.setAttribute("class","clickable")
+s2.setAttribute("hotspot","text: Angkor Wat is the largest religious monument in the world")
+
+angkor.appendChild(s1)
+angkor.appendChild(s2)
+
+})
 
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
