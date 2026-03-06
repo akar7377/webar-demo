@@ -1,241 +1,251 @@
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>7 Wonders AR</title>
-
-<script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+<title>Wonders of the World AR</title>
+<script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
-
 <style>
-
 body{
 margin:0;
 overflow:hidden;
-font-family:Arial;
+background:#1C1A18;
+font-family:Georgia, serif;
 }
-
-#ui{
-position:absolute;
-top:10px;
-left:10px;
+.title{
+position:fixed;
+top:20px;
+width:100%;
+text-align:center;
+color:#F3EBDD;
+font-size:24px;
+letter-spacing:3px;
 z-index:10;
-display:flex;
-gap:10px;
 }
-
-button{
-padding:10px 15px;
-border:none;
-border-radius:8px;
-background:white;
-font-weight:bold;
-cursor:pointer;
-}
-
-button.active{
-background:#4CAF50;
-color:white;
-}
-
-#infoBox{
-position:absolute;
+#ui{
+position:fixed;
 bottom:30px;
 left:50%;
 transform:translateX(-50%);
-background:rgba(0,0,0,0.8);
-color:white;
-padding:20px;
+display:flex;
+gap:12px;
+background:rgba(0,0,0,0.5);
+padding:15px;
 border-radius:10px;
-display:none;
-max-width:300px;
-text-align:center;
+z-index:999;
 }
-
-#exitBtn{
-margin-top:10px;
-background:red;
-color:white;
+.model-btn{
+padding:10px 20px;
+border:1px solid #C6A75E;
+background:#3A2F23;
+color:#F3EBDD;
+cursor:pointer;
+border-radius:6px;
 }
-
+.active{
+background:#C6A75E;
+color:black;
+}
 </style>
 </head>
-
 <body>
-
-<!-- MODEL SWITCH UI -->
+<div class="title">Wonders of the World AR</div>
 <div id="ui">
-<button id="tajBtn" class="active" onclick="showTaj()">Taj Mahal</button>
-<button id="angkorBtn" onclick="showAngkor()">Angkor Wat</button>
+<button id="tajBtn" class="model-btn active" onclick="showTaj()">Taj Mahal</button>
+<button id="angkorBtn" class="model-btn" onclick="showAngkor()">Angkor Wat</button>
 </div>
-
-<!-- INFO PANEL -->
-<div id="infoBox">
-<p id="infoText"></p>
-<button id="exitBtn" onclick="closeInfo()">Exit</button>
-</div>
-
-<a-scene
-embedded
-vr-mode-ui="enabled:false"
-arjs="trackingMethod:best; sourceType:webcam; debugUIEnabled:false">
-
+<a-scene embedded vr-mode-ui="enabled:false"
+arjs="sourceType:webcam; debugUIEnabled:false;">
+<!-- AUDIO -->
 <a-assets>
-
-<!-- MODELS -->
-<a-asset-item id="tajModel" src="Tajtexturedfinal.glb"></a-asset-item>
-<a-asset-item id="angkorModel" src="models/TajtextureFinalfr.glb"></a-asset-item>
-
-<!-- AUDIO FILES -->
-
-<!-- TAJ -->
-<audio id="taj_en" src="Tajmahal-audio.mp3"></audio>
-<audio id="taj_ta" src="Ttajmahal.mp3"></audio>
-
-<!-- ANGKOR -->
-<audio id="angkor_en" src="AnkgorWat-audio.mp3"></audio>
-<audio id="angkor_ta" src="Tangkorwat.mp3"></audio>
-
+<audio id="tajAudio" src="audio/Tajmahal-audio.mp3"></audio>
+<audio id="tajHotspotAudio" src="audio/tajmahal.domb-audio.mp3"></audio>
+<audio id="angkorAudio" src="audio/AnkgorWat-audio.mp3"></audio>
+<audio id="angkorHotspotAudio" src="audio/AnkgorTemple-audio.mp3"></audio>
 </a-assets>
-
 <a-marker preset="hiro">
-
-<!-- TAJ MODEL -->
-<a-entity id="tajGroup">
-
+<!-- TAJ GROUP -->
+<a-entity id="tajGroup" visible="true">
 <a-entity
 id="taj"
-gltf-model="#tajModel"
-scale="0.5 0.5 0.5"
-animation="property: rotation; to:0 360 0; loop:true; dur:8000">
+gltf-model="Tajtexturedfinal.glb"
+scale="0.2 0.2 0.2"
+position="0 -0.3 0"
+animation__rise="property: position; from:0 -0.3 0; to:0 0 0; dur:2000; startEvents:startAnim">
 </a-entity>
-
 </a-entity>
-
-<!-- ANGKOR MODEL -->
+<!-- ANGKOR GROUP -->
 <a-entity id="angkorGroup" visible="false">
-
 <a-entity
 id="angkor"
-gltf-model="#angkorModel"
-scale="0.5 0.5 0.5"
-animation="property: rotation; to:0 360 0; loop:true; dur:8000">
+gltf-model="models/TajtextureFinalfr.glb"
+scale="0.02 0.02 0.02"
+position="0 -0.3 0"
+animation__rise="property: position; from:0 -0.3 0; to:0 0 0; dur:2000; startEvents:startAnim">
 </a-entity>
-
+<a-sphere
+position="0 0.27 0"
+radius="0.03"
+color="blue"
+class="clickable"
+hotspot="text: Angkor Wat has five lotus shaped towers"
+audio="angkorHotspotAudio">
+</a-sphere>
+<a-sphere
+position="0.4 0.2 0.3"
+radius="0.03"
+color="blue"
+class="clickable"
+hotspot="text: Angkor Wat is the largest religious monument in the world"
+audio="angkorHotspotAudio">
+</a-sphere>
 </a-entity>
-
 </a-marker>
-
-<a-entity camera></a-entity>
-
+<!-- CAMERA -->
+<a-entity camera look-controls>
+<a-cursor
+raycaster="objects: .clickable"
+fuse="true"
+fuse-timeout="800"
+material="color:white">
+</a-cursor>
+<!-- INFO BOX -->
+<a-entity id="infoBox" position="0 -0.1 -1.8" visible="false">
+<a-plane
+width="0.7"
+height="0.25"
+color="#222"
+opacity="0.9">
+</a-plane>
+<a-text
+id="infoText"
+value=""
+align="center"
+color="white"
+width="0.6"
+wrap-count="26"
+position="0 0 0.01">
+</a-text>
+</a-entity>
+<!-- EXIT -->
+<a-plane
+id="exitBtn"
+class="clickable"
+exit-handler
+position="0 -0.45 -1.8"
+width="0.35"
+height="0.18"
+color="red"
+visible="false">
+</a-plane>
+<a-text
+id="exitText"
+value="EXIT"
+align="center"
+color="white"
+width="2"
+position="0 -0.45 -1.79"
+visible="false">
+</a-text>
+</a-entity>
 </a-scene>
-
 <script>
-
-/* LANGUAGE SETUP */
-
-let userLang = localStorage.getItem("audioLang");
-
-if(!userLang){
-
-let choice = prompt("Choose audio language: English or Tamil");
-
-if(choice && choice.toLowerCase().includes("tamil")){
-userLang="ta";
-}else{
-userLang="en";
-}
-
-localStorage.setItem("audioLang", userLang);
-
-}
-
-/* AUDIO PLAYER */
-
-function playAudio(place){
-
+/* HOTSPOT COMPONENT */
+AFRAME.registerComponent("hotspot",{
+schema:{text:{type:"string"}},
+init:function(){
+this.el.addEventListener("click",()=>{
+let text=document.querySelector("#infoText")
+let box=document.querySelector("#infoBox")
+let exitBtn=document.querySelector("#exitBtn")
+let exitText=document.querySelector("#exitText")
+let taj=document.querySelector("#taj")
+let angkor=document.querySelector("#angkor")
+text.setAttribute("value",this.data.text)
+box.setAttribute("visible",true)
+exitBtn.setAttribute("visible",true)
+exitText.setAttribute("visible",true)
+/* PLAY AUDIO */
+function playAudio(audioId){
+/* stop ALL audio */
 document.querySelectorAll("audio").forEach(a=>{
-a.pause();
-a.currentTime=0;
-});
-
-let audioID="";
-
-if(place==="taj"){
-audioID = userLang==="ta" ? "taj_ta" : "taj_en";
+a.pause()
+a.currentTime = 0
+})
+/* play selected audio */
+let audio = document.querySelector("#"+audioId)
+if(audio){
+playAudio(audioId)
 }
-
-if(place==="angkor"){
-audioID = userLang==="ta" ? "angkor_ta" : "angkor_en";
 }
-
-document.getElementById(audioID).play();
-
+/* ZOOM */
+if(document.querySelector("#tajGroup").getAttribute("visible")){
+taj.setAttribute("animation",
+"property: scale; to:0.35 0.35 0.35; dur:600")
 }
-
-/* MODEL SWITCH */
-
+if(document.querySelector("#angkorGroup").getAttribute("visible")){
+angkor.setAttribute("animation",
+"property: scale; to:0.05 0.05 0.05; dur:600")
+}
+})
+}
+})
+/* EXIT BUTTON */
+AFRAME.registerComponent("exit-handler",{
+init:function(){
+this.el.addEventListener("click",()=>{
+document.querySelector("#infoBox").setAttribute("visible",false)
+document.querySelector("#exitBtn").setAttribute("visible",false)
+document.querySelector("#exitText").setAttribute("visible",false)
+let taj=document.querySelector("#taj")
+let angkor=document.querySelector("#angkor")
+if(taj) taj.setAttribute("scale","0.2 0.2 0.2")
+if(angkor) angkor.setAttribute("scale","0.02 0.02 0.02")
+})
+}
+})
+/* MARKER FOUND */
+document.querySelector("a-marker").addEventListener("markerFound",()=>{
+let taj=document.querySelector("#taj")
+let angkor=document.querySelector("#angkor")
+if(document.querySelector("#tajGroup").getAttribute("visible")){
+taj.emit("startAnim")
+document.querySelector("#tajAudio").play()
+}
+if(document.querySelector("#angkorGroup").getAttribute("visible")){
+angkor.emit("startAnim")
+document.querySelector("#angkorAudio").play()
+}
+})
 function showTaj(){
-
-document.getElementById("tajGroup").setAttribute("visible",true);
-document.getElementById("angkorGroup").setAttribute("visible",false);
-
-document.getElementById("tajBtn").classList.add("active");
-document.getElementById("angkorBtn").classList.remove("active");
-
+document.querySelector("#tajGroup").setAttribute("visible",true)
+document.querySelector("#angkorGroup").setAttribute("visible",false)
+document.getElementById("tajBtn").classList.add("active")
+document.getElementById("angkorBtn").classList.remove("active")
 }
-
 function showAngkor(){
-
-document.getElementById("tajGroup").setAttribute("visible",false);
-document.getElementById("angkorGroup").setAttribute("visible",true);
-
-document.getElementById("tajBtn").classList.remove("active");
-document.getElementById("angkorBtn").classList.add("active");
-
+document.querySelector("#tajGroup").setAttribute("visible",false)
+document.querySelector("#angkorGroup").setAttribute("visible",true)
+document.getElementById("tajBtn").classList.remove("active")
+document.getElementById("angkorBtn").classList.add("active")
 }
-
-/* INFO BOX */
-
-function showInfo(text){
-
-document.getElementById("infoText").innerText=text;
-document.getElementById("infoBox").style.display="block";
-
+/* TAJ HOTSPOTS */
+document.querySelector("#taj").addEventListener("model-loaded",function(){
+let taj=document.querySelector("#taj")
+function createHotspot(pos,text){
+let s=document.createElement("a-sphere")
+s.setAttribute("position",pos)
+s.setAttribute("radius","0.3")
+s.setAttribute("color","red")
+s.setAttribute("class","clickable")
+s.setAttribute("hotspot","text:"+text)
+s.setAttribute("audio","tajHotspotAudio")
+taj.appendChild(s)
 }
-
-function closeInfo(){
-
-document.getElementById("infoBox").style.display="none";
-
-}
-
-/* MARKER EVENT */
-
-let marker = document.querySelector("a-marker");
-
-marker.addEventListener("markerFound",()=>{
-
-let tajVisible = document.getElementById("tajGroup").getAttribute("visible");
-
-if(tajVisible){
-
-playAudio("taj");
-
-showInfo("The Taj Mahal was built in 1632 by Shah Jahan.");
-
-}else{
-
-playAudio("angkor");
-
-showInfo("Angkor Wat is the largest religious monument in the world.");
-
-}
-
-});
-
+createHotspot("0 2 0","Taj Mahal central dome rises about 73 meters")
+createHotspot("3.25 1 3.75","Taj Mahal has four outward leaning minarets")
+createHotspot("0 -2 8","The Taj complex follows a Mughal Charbagh garden layout")
+})
 </script>
-
 </body>
 </html>
