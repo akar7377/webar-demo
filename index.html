@@ -220,7 +220,13 @@ if(audioId){
 
 let audio=document.querySelector("#"+audioId)
 
-audio.currentTime=0
+/* stop all other audio */
+document.querySelectorAll("audio").forEach(a=>{
+a.pause()
+a.currentTime = 0
+})
+
+/* play selected audio */
 audio.play()
 
 }
@@ -353,5 +359,6 @@ createHotspot("0 -2 8","The Taj complex follows a Mughal Charbagh garden layout"
 
 </body>
 </html>
+
 
 
