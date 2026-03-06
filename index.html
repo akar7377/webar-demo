@@ -76,12 +76,14 @@ color:black;
 <body>
   
 <div class="title">Wonders of the World AR</div>
-<div id="ui">
 <div id="langUI">
 <p>Select Audio Language</p>
 <button onclick="setLanguage('en')">English</button>
 <button onclick="setLanguage('ta')">தமிழ்</button>
 </div>
+  
+<div id="ui">
+
 <button id="tajBtn" class="model-btn active" onclick="showTaj()">Taj Mahal</button>
 <button id="angkorBtn" class="model-btn" onclick="showAngkor()">Angkor Wat</button>
 </div>
@@ -135,7 +137,7 @@ radius="0.03"
 color="blue"
 class="clickable"
 hotspot="text: Angkor Wat has five lotus shaped towers"
-audio="angkorHotspotAudio">
+audio="angkorHotspot">
 </a-sphere>
 <a-sphere
 position="0.4 0.2 0.3"
@@ -143,7 +145,7 @@ radius="0.03"
 color="blue"
 class="clickable"
 hotspot="text: Angkor Wat is the largest religious monument in the world"
-audio="angkorHotspotAudio">
+audio="angkorHotspot">
 </a-sphere>
 </a-entity>
 </a-marker>
@@ -214,22 +216,6 @@ document.getElementById("langUI").style.display="none"
 }
 
 /* GLOBAL AUDIO CONTROL */
-
-function playAudio(base){
-
-document.querySelectorAll("audio").forEach(a=>{
-a.pause()
-a.currentTime=0
-})
-
-let audioID = base + "_" + userLang
-let audio = document.querySelector("#"+audioID)
-
-if(audio){
-audio.play()
-}
-
-}
 /* HOTSPOT COMPONENT */
   
 AFRAME.registerComponent("hotspot",{
@@ -330,7 +316,7 @@ s.setAttribute("radius","0.3")
 s.setAttribute("color","red")
 s.setAttribute("class","clickable")
 s.setAttribute("hotspot","text:"+text)
-s.setAttribute("audio","tajHotspotAudio")
+s.setAttribute("audio","tajHotspot")
 taj.appendChild(s)
 }
 createHotspot("0 2 0","Taj Mahal central dome rises about 73 meters")
@@ -340,3 +326,4 @@ createHotspot("0 -2 8","The Taj complex follows a Mughal Charbagh garden layout"
 </script>
 </body>
 </html>
+
