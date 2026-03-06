@@ -91,7 +91,7 @@ width="2">
   
 <!-- TAJ GROUP -->
 
-<a-entity id="tajGroup" visible="false">
+<a-entity id="tajGroup" visible="true">
 
 <a-entity
 id="taj"
@@ -120,7 +120,7 @@ hotspot="text: Taj Mahal has four minarets that lean outward">
 </a-sphere>
 
 <a-sphere
-position="=0.35 -0.05 0.35"
+position="-0.35 -0.05 0.35"
 radius="0.1"
 color="red"
 class="clickable"
@@ -131,7 +131,7 @@ hotspot="text: The Taj complex uses a Mughal Charbagh garden layout">
 
 <!-- ANGKOR GROUP -->
 
-<a-entity id="angkorGroup" visible="true">
+<a-entity id="angkorGroup" visible="false">
 
 <a-entity position="0 0 0">
 
@@ -211,16 +211,21 @@ document.getElementById("angkorBtn").classList.add("active")
 }
 
 function startStory(){
-let taj=document.querySelector("#taj")
-let angkor=document.querySelector("#angkor")
 
-if(document.querySelector("#tajGroup").getAttribute("visible") === true){
+let taj = document.querySelector("#taj")
+let angkor = document.querySelector("#angkor")
+
+let tajVisible = document.querySelector("#tajGroup").getAttribute("visible")
+let angkorVisible = document.querySelector("#angkorGroup").getAttribute("visible")
+
+if(tajVisible){
 taj.emit("startAnim")
 }
 
-if(document.querySelector("#angkorGroup").getAttribute("visible") === true){
+if(angkorVisible){
 angkor.emit("startAnim")
 }
+
 }
 function showInfo(part){
 
@@ -264,6 +269,7 @@ panel.setAttribute("visible",true)
 
 </body>
 </html>
+
 
 
 
