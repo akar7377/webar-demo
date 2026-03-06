@@ -159,6 +159,7 @@ animation__rise="property: position; from:0 -0.3 0; to:0 0 0; dur:2000; startEve
 position="0 0.27 0"
 radius="0.03"
 color="blue"
+animation="property: scale; to: 1.3 1.3 1.3; dir: alternate; loop: true; dur: 900"
 class="clickable"
 hotspot="text: Angkor Wat has five lotus shaped towers"
 audio="angkorHotspot">
@@ -168,6 +169,7 @@ audio="angkorHotspot">
 position="0.4 0.2 0.3"
 radius="0.03"
 color="blue"
+animation="property: scale; to: 1.3 1.3 1.3; dir: alternate; loop: true; dur: 900"
 class="clickable"
 hotspot="text: Angkor Wat is the largest religious monument in the world"
 audio="angkorHotspot">
@@ -190,7 +192,7 @@ material="color:white">
 
 <a-entity id="infoBox" position="0 -0.1 -1.8" visible="false">
 
-<a-plane width="0.7" height="0.25" color="#222" opacity="0.9"></a-plane>
+<a-plane width="0.7" height="0.25" color="#111" opacity="0.85"></a-plane>
 
 <a-text
 id="infoText"
@@ -203,17 +205,6 @@ position="0 0 0.01">
 </a-text>
 
 </a-entity>
-
-<a-plane
-id="exitBtn"
-class="clickable"
-exit-handler
-position="0 -0.45 -1.8"
-width="0.35"
-height="0.18"
-color="red"
-visible="false">
-</a-plane>
 
 <a-text
 id="exitText"
@@ -374,9 +365,8 @@ s.setAttribute("position",pos)
 s.setAttribute("radius","0.3")
 s.setAttribute("color","red")
 s.setAttribute("class","clickable")
-
 s.setAttribute("hotspot","text:"+text)
-
+s.setAttribute("animation","property: scale; to: 1.3 1.3 1.3; dir:alternate; loop: true; dur: 900")
 s.setAttribute("audio","tajHotspot")
 
 taj.appendChild(s)
@@ -393,5 +383,6 @@ createHotspot("0 -2 8","The Taj complex follows a Mughal Charbagh garden layout"
 
 </body>
 </html>
+
 
 
