@@ -193,16 +193,16 @@ material="color:white">
   }
 })
 function showTaj(){
-document.getElementById("tajGroup").setAttribute("visible",true)
-document.getElementById("angkorGroup").setAttribute("visible",false)
+document.querySelector("#tajGroup").setAttribute("visible","true")
+document.querySelector("#angkorGroup").setAttribute("visible","false")
 
 document.getElementById("tajBtn").classList.add("active")
 document.getElementById("angkorBtn").classList.remove("active")
 }
 
 function showAngkor(){
-document.getElementById("tajGroup").setAttribute("visible",false)
-document.getElementById("angkorGroup").setAttribute("visible",true)
+document.querySelector("#tajGroup").setAttribute("visible","false")
+document.querySelector("#angkorGroup").setAttribute("visible","true")
 
 document.getElementById("tajBtn").classList.remove("active")
 document.getElementById("angkorBtn").classList.add("active")
@@ -262,6 +262,7 @@ panel.setAttribute("visible",true)
 
 </body>
 </html>
+
 
 
 
