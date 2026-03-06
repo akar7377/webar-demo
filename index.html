@@ -71,6 +71,21 @@ border-radius:6px;
 cursor:pointer;
 }
 
+#exitHTML{
+position:fixed;
+bottom:120px;
+left:50%;
+transform:translateX(-50%);
+padding:12px 25px;
+background:red;
+color:white;
+border:none;
+border-radius:8px;
+font-size:16px;
+display:none;
+z-index:999;
+}
+
 .active{
 background:#C6A75E;
 color:black;
@@ -91,6 +106,7 @@ color:black;
 <div id="ui">
 <button id="tajBtn" class="model-btn active" onclick="showTaj()">Taj Mahal</button>
 <button id="angkorBtn" class="model-btn" onclick="showAngkor()">Angkor Wat</button>
+<button id="exitHTML" onclick="exitHotspot()">EXIT</button>
 </div>
 
 <a-scene embedded vr-mode-ui="enabled:false"
@@ -273,6 +289,8 @@ box.setAttribute("visible",true)
 exitBtn.setAttribute("visible",true)
 exitText.setAttribute("visible",true)
 
+document.getElementById("exitHTML").style.display="block";
+
 /* ZOOM */
 
 if(document.querySelector("#tajGroup").getAttribute("visible")){
@@ -291,15 +309,11 @@ angkor.setAttribute("animation","property: scale; to:0.05 0.05 0.05; dur:600")
 
 /* EXIT BUTTON */
 
-AFRAME.registerComponent("exit-handler",{
-
-init:function(){
-
-this.el.addEventListener("click",()=>{
+function exitHotspot(){
 
 document.querySelector("#infoBox").setAttribute("visible",false)
-document.querySelector("#exitBtn").setAttribute("visible",false)
-document.querySelector("#exitText").setAttribute("visible",false)
+
+document.getElementById("exitHTML").style.display="none"
 
 let taj=document.querySelector("#taj")
 let angkor=document.querySelector("#angkor")
@@ -307,11 +321,7 @@ let angkor=document.querySelector("#angkor")
 if(taj) taj.setAttribute("scale","0.2 0.2 0.2")
 if(angkor) angkor.setAttribute("scale","0.02 0.02 0.02")
 
-})
-
 }
-
-})
 
 /* MARKER FOUND */
 
@@ -387,3 +397,4 @@ createHotspot("0 -2 8","The Taj complex follows a Mughal Charbagh garden layout"
 
 </body>
 </html>
+
