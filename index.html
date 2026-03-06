@@ -125,6 +125,25 @@ hotspot="text: Angkor Wat is the largest religious monument in the world">
 </a-marker>
 
 <a-entity id="cam" camera look-controls>
+
+<a-entity id="infoBox" position="0 -0.2 -1.2" visible="false">
+
+<a-plane
+width="1.6"
+height="0.9"
+color="#222"
+opacity="0.9">
+</a-plane>
+
+<a-text
+id="infoText"
+value=""
+align="center"
+color="white"
+width="1.5"
+position="0 0 0.01">
+</a-text>
+
 <a-cursor
 raycaster="objects: .clickable"
 fuse="true"
@@ -143,16 +162,17 @@ init:function(){
 
 this.el.addEventListener("click", ()=>{
 
-let panel = document.querySelector("#infoPanel")
+let text = document.querySelector("#infoPanel")
+let box = document.quesrySelector("#infoBox")
 let taj = document.querySelector("#taj")
 let angkor = document.querySelector("#angkor")
 
 /* show info text */
-panel.setAttribute("value", this.data.text)
-panel.setAttribute("visible", true)
+text.setAttribute("value", this.data.text)
+box.setAttribute("visible", true)
 
 /* text slides toward screen */
-panel.setAttribute("animation",
+text.setAttribute("animation",
 "property: position; from:0 0.8 0; to:0 -0.3 -1; dur:500; easing:easeOutQuad")
 
 /* zoom monument */
@@ -243,6 +263,7 @@ taj.appendChild(s3)
 
 </body>
 </html>
+
 
 
 
