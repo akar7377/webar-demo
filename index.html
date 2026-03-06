@@ -144,19 +144,27 @@ init:function(){
 this.el.addEventListener("click", ()=>{
 
 let panel = document.querySelector("#infoPanel")
-let cam = document.querySelector("#cam")
+let taj = document.querySelector("#taj")
+let angkor = document.querySelector("#angkor")
 
-/* show text */
+/* show info text */
 panel.setAttribute("value", this.data.text)
 panel.setAttribute("visible", true)
 
-/* text zoom animation */
+/* text slides toward screen */
 panel.setAttribute("animation",
-"property: position; from:0 -0.6 -2; to:0 -0.3 -1; dur:500; easing:easeOutQuad")
+"property: position; from:0 0.8 0; to:0 -0.3 -1; dur:500; easing:easeOutQuad")
 
-/* camera zoom */
-cam.setAttribute("animation",
-"property: position; to:0 0 0.3; dur:600; easing:easeOutQuad")
+/* zoom monument */
+if(taj){
+taj.setAttribute("animation",
+"property: scale; to:0.3 0.3 0.3; dur:600")
+}
+
+if(angkor){
+angkor.setAttribute("animation",
+"property: scale; to:0.03 0.03 0.03; dur:600")
+}
 
 })
 }
@@ -235,6 +243,7 @@ taj.appendChild(s3)
 
 </body>
 </html>
+
 
 
 
