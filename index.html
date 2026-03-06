@@ -91,7 +91,7 @@ width="2">
   
 <!-- TAJ GROUP -->
 
-<a-entity id="tajGroup" visible="false">
+<a-entity id="tajGroup" visible="true">
 
 <a-entity
 id="taj"
@@ -131,8 +131,10 @@ hotspot="text: The Taj complex uses a Mughal Charbagh garden layout">
 
 <!-- ANGKOR GROUP -->
 
-<a-entity id="angkorGroup" visible="true">
+<a-entity id="angkorGroup" visible="false">
 
+<a-box position="0 0.5 0" color="green"></a-box>
+  
 <a-entity
 id="angkor"
 gltf-model="models/texturedAngkor.glb"
@@ -207,18 +209,17 @@ document.getElementById("angkorBtn").classList.add("active")
 }
 
 function startStory(){
-
 let taj=document.querySelector("#taj")
 let angkor=document.querySelector("#angkor")
 
-if(document.querySelector("#tajGroup").getAttribute("visible"))
+if(document.querySelector("#tajGroup").getAttribute("visible") === true){
 taj.emit("startAnim")
-
-if(document.querySelector("#angkorGroup").getAttribute("visible"))
-angkor.emit("startAnim")
-
 }
 
+if(document.querySelector("#angkorGroup").getAttribute("visible") === true){
+angkor.emit("startAnim")
+}
+}
 function showInfo(part){
 
 let panel=document.querySelector("#infoPanel")
@@ -261,6 +262,7 @@ panel.setAttribute("visible",true)
 
 </body>
 </html>
+
 
 
 
