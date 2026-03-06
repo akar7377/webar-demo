@@ -151,12 +151,13 @@ position="0 0 0.01">
 
 <a-plane
 id="exitBtn"
+class="clickable"
+exit-handler
 position="0 -0.45 -1.8"
-width="0.5"
-height="0.25"
+width="0.35"
+height="0.18"
 color="red"
-visible="false"
-class="clickable">
+visible="false">
 </a-plane>
 
 <a-text
@@ -214,22 +215,24 @@ angkor.setAttribute("animation",
 })
 
 /* EXIT BUTTON */
-window.addEventListener("load", function(){
+AFRAME.registerComponent("exit-handler",{
+init:function(){
 
-document.querySelector("#exitBtn").addEventListener("click", function(){
+this.el.addEventListener("click",()=>{
 
-document.querySelector("#infoBox").setAttribute("visible", false)
-document.querySelector("#exitBtn").setAttribute("visible", false)
-document.querySelector("#exitText").setAttribute("visible", false)
+document.querySelector("#infoBox").setAttribute("visible",false)
+document.querySelector("#exitBtn").setAttribute("visible",false)
+document.querySelector("#exitText").setAttribute("visible",false)
 
 let taj=document.querySelector("#taj")
 let angkor=document.querySelector("#angkor")
 
-taj.setAttribute("scale","0.2 0.2 0.2")
-angkor.setAttribute("scale","0.02 0.02 0.02")
+if(taj) taj.setAttribute("scale","0.2 0.2 0.2")
+if(angkor) angkor.setAttribute("scale","0.02 0.02 0.02")
 
 })
 
+}
 })
 
 /* MARKER FOUND */
@@ -306,6 +309,7 @@ taj.appendChild(s3)
 
 </body>
 </html>
+
 
 
 
