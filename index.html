@@ -62,7 +62,6 @@ color:black;
 <div id="ui">
 <button id="tajBtn" class="model-btn active" onclick="showTaj()">Taj Mahal</button>
 <button id="angkorBtn" class="model-btn" onclick="showAngkor()">Angkor Wat</button>
-<button class="model-btn" onclick="startStory()">Start Story</button>
 </div>
 
 <a-scene embedded vr-mode-ui="enabled:false"
@@ -133,6 +132,21 @@ panel.setAttribute("visible", true)
 }
 })
 
+document.querySelector("a-marker").addEventListener("markerFound", () => {
+
+let taj = document.querySelector("#taj")
+let angkor = document.querySelector("#angkor")
+
+if(document.querySelector("#tajGroup").getAttribute("visible")){
+taj.emit("startAnim")
+}
+
+if(document.querySelector("#angkorGroup").getAttribute("visible")){
+angkor.emit("startAnim")
+}
+
+})
+
 function showTaj(){
 
 document.querySelector("#tajGroup").setAttribute("visible",true)
@@ -150,21 +164,6 @@ document.querySelector("#angkorGroup").setAttribute("visible",true)
 
 document.getElementById("tajBtn").classList.remove("active")
 document.getElementById("angkorBtn").classList.add("active")
-
-}
-
-function startStory(){
-
-let taj=document.querySelector("#taj")
-let angkor=document.querySelector("#angkor")
-
-if(document.querySelector("#tajGroup").getAttribute("visible")){
-taj.emit("startAnim")
-}
-
-if(document.querySelector("#angkorGroup").getAttribute("visible")){
-angkor.emit("startAnim")
-}
 
 }
 
@@ -228,5 +227,6 @@ angkor.appendChild(s2)
 
 </body>
 </html>
+
 
 
