@@ -200,9 +200,11 @@ taj.appendChild(s3)
 
 })
 
+window.onload = function(){
+
 document.querySelector("#angkor").addEventListener("model-loaded", function(){
 
-let angkor=document.querySelector("#angkor")
+let angkor = document.querySelector("#angkor")
 
 let debug = document.createElement("a-sphere")
 debug.setAttribute("position","0 0.5 0")
@@ -210,30 +212,16 @@ debug.setAttribute("radius","0.6")
 debug.setAttribute("color","yellow")
 
 angkor.appendChild(debug)
-  
-let s1=document.createElement("a-sphere")
-s1.setAttribute("position","0 1.2 0")
-s1.setAttribute("radius","0.25")
-s1.setAttribute("color","blue")
-s1.setAttribute("class","clickable")
-s1.setAttribute("hotspot","text: Angkor Wat has five lotus shaped towers")
-
-let s2=document.createElement("a-sphere")
-s2.setAttribute("position","0.6 0.8 0.3")
-s2.setAttribute("radius","0.25")
-s2.setAttribute("color","blue")
-s2.setAttribute("class","clickable")
-s2.setAttribute("hotspot","text: Angkor Wat is the largest religious monument in the world")
-
-angkor.appendChild(s1)
-angkor.appendChild(s2)
 
 })
+
+}
 
 </script>
 
 </body>
 </html>
+
 
 
 
