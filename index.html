@@ -185,6 +185,7 @@ material="color:white">
 
   init:function(){
     this.el.addEventListener("click", ()=>{
+      console.log("hotspot clicked")
       let panel=document.querySelector("#infoPanel")
       panel.setAttribute("value", this.data.text)
       panel.setAttribute("visible", true)
@@ -262,5 +263,6 @@ panel.setAttribute("visible",true)
 
 </body>
 </html>
+
 
 
