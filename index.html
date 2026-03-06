@@ -273,8 +273,6 @@ this.el.addEventListener("click",()=>{
 
 let text=document.querySelector("#infoText")
 let box=document.querySelector("#infoBox")
-let exitBtn=document.querySelector("#exitBtn")
-let exitText=document.querySelector("#exitText")
 
 let taj=document.querySelector("#taj")
 let angkor=document.querySelector("#angkor")
@@ -286,8 +284,6 @@ playAudio(audioName)
 text.setAttribute("value",this.data.text)
 
 box.setAttribute("visible",true)
-exitBtn.setAttribute("visible",true)
-exitText.setAttribute("visible",true)
 
 document.getElementById("exitHTML").style.display="block";
 
@@ -397,4 +393,5 @@ createHotspot("0 -2 8","The Taj complex follows a Mughal Charbagh garden layout"
 
 </body>
 </html>
+
 
