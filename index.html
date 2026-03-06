@@ -214,18 +214,21 @@ angkor.setAttribute("animation",
 })
 
 /* EXIT BUTTON */
+window.addEventListener("load", function(){
 
-document.querySelector("#exitBtn").addEventListener("click",()=>{
+document.querySelector("#exitBtn").addEventListener("click", function(){
+
+document.querySelector("#infoBox").setAttribute("visible", false)
+document.querySelector("#exitBtn").setAttribute("visible", false)
+document.querySelector("#exitText").setAttribute("visible", false)
 
 let taj=document.querySelector("#taj")
 let angkor=document.querySelector("#angkor")
 
-document.querySelector("#infoBox").setAttribute("visible",false)
-document.querySelector("#exitBtn").setAttribute("visible",false)
-document.querySelector("#exitText").setAttribute("visible",false)
-
 taj.setAttribute("scale","0.2 0.2 0.2")
 angkor.setAttribute("scale","0.02 0.02 0.02")
+
+})
 
 })
 
@@ -303,5 +306,6 @@ taj.appendChild(s3)
 
 </body>
 </html>
+
 
 
