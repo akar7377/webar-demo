@@ -132,17 +132,21 @@ hotspot="text: The Taj complex uses a Mughal Charbagh garden layout">
 <!-- ANGKOR GROUP -->
 
 <a-entity id="angkorGroup" visible="false">
-  
+
+<a-entity position="0 0 0">
+
 <a-entity
 id="angkor"
 gltf-model="models/texturedAngkor.glb"
-scale="1 1 1"
-position="0 0.1 0"
-animation__rise="property: position; from:0 -0.3 0; to:0 0 0; dur:2000; startEvents:startAnim">
+animation-mixer
+scale="0.1 0.1 0.1"
+position="0 0 0"
+rotation="0 0 0">
+</a-entity>
+
 </a-entity>
 
 <!-- Angkor Hotspots -->
-
 <a-sphere
 position="0 0.4 0"
 radius="0.1"
@@ -260,6 +264,7 @@ panel.setAttribute("visible",true)
 
 </body>
 </html>
+
 
 
 
