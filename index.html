@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>World Heritage AR Explorer</title>
+
+<style>
+
+body{
+margin:0;
+font-family: 'Segoe UI', sans-serif;
+background: linear-gradient(to bottom, #e8cfa4, #d2a679);
+color:#3b2b1a;
+text-align:center;
+}
+
+/* HEADER */
+
+header{
+padding:60px 20px 40px 20px;
+}
+
+h1{
+font-size:48px;
+margin-bottom:10px;
+}
+
+.team{
+font-size:20px;
+margin-bottom:30px;
+}
+
+/* BUTTON */
+
+.enter-btn{
+padding:18px 40px;
+font-size:20px;
+background:#8b5e34;
+color:white;
+border:none;
+border-radius:10px;
+cursor:pointer;
+transition:0.3s;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+
+.enter-btn:hover{
+background:#6d4727;
+transform:scale(1.05);
+}
+
+/* MONUMENT SECTION */
+
+.section{
+margin-top:60px;
+padding:20px;
+}
+
+.monument-grid{
+display:flex;
+justify-content:center;
+gap:30px;
+flex-wrap:wrap;
+margin-top:25px;
+}
+
+.monument{
+background:#f4e2c4;
+padding:15px;
+border-radius:12px;
+width:150px;
+box-shadow:0 3px 8px rgba(0,0,0,0.15);
+}
+
+.monument img{
+width:100%;
+border-radius:8px;
+}
+
+.monument p{
+margin-top:8px;
+font-weight:bold;
+}
+
+/* FOOTER */
+
+footer{
+margin-top:60px;
+padding:20px;
+font-size:14px;
+opacity:0.8;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>World Heritage AR Explorer</h1>
+
+<div class="team">
+Created by Team <b>Get a Reality</b>
+</div>
+
+<button class="enter-btn" onclick="enterAR()">
+Enter the AR Experience
+</button>
+
+</header>
+
+<section class="section">
+
+<h2>Discover World Heritage Sites</h2>
+
+<div class="monument-grid">
+
+<div class="monument">
+<img src="pyramids.jpg">
+<p>Pyramids of Giza</p>
+</div>
+
+<div class="monument">
+<img src="tajmahal.jpg">
+<p>Taj Mahal</p>
+</div>
+
+<div class="monument">
+<img src="colosseum.jpg">
+<p>Colosseum</p>
+</div>
+
+<div class="monument">
+<img src="machupicchu.jpg">
+<p>Machu Picchu</p>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+Experience history through Augmented Reality
+</footer>
+
+<script>
+
+function enterAR(){
+window.location.href="heritage.html";
+}
+
+</script>
+
+</body>
+
+</html>
